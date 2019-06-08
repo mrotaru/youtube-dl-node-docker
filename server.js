@@ -3,7 +3,7 @@ const fs = require("fs").promises;
 const util = require("util");
 const exec = util.promisify(require("child_process").exec);
 const mime = require("mime");
-const PORT = 1212;
+const PORT = 8080;
 
 console.log(`youtube-dl listening on ${PORT}...`);
 const server = http.createServer();
@@ -33,6 +33,7 @@ server.on("request", (req, res) => {
         }
         const out = JSON.parse(stdout);
         const filename = out._filename;
+        console.log(`filename: ${filename}`)
         res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
         res.setHeader("content-type", mime.getType(filename));
         return fs.readFile(filename, { encoding: null })
@@ -45,7 +46,7 @@ server.on("request", (req, res) => {
   }
 
   if (req.url.startsWith("/video/")) {
-    handler()
+    handler({ params: ['format bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best']})
   } else if (req.url.startsWith('/audio/')) {
     return handler({ params: ['extract-audio'] })
   } else {
