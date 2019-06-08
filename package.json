@@ -1,0 +1,13 @@
+{
+  "name": "youtube-dl-node",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Mihai Rotaru <mihai.rotaru@gmx.com>",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "mime": "^2.4.4"
+  }
+}
